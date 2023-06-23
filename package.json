@@ -2,9 +2,9 @@
   "name": "@redmunroe/lambda-responder",
   "version": "1.0.2",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "babel src -d dist"
+    "prepublish": "tsc"
   },
   "author": "",
   "license": "ISC",
@@ -12,5 +12,8 @@
     "@babel/cli": "^7.22.5",
     "@babel/core": "^7.22.5",
     "@babel/preset-env": "^7.22.5"
+  },
+  "dependencies": {
+    "@redmunroe/net-http": "^1.0.0"
   }
 }
