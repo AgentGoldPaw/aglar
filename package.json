@@ -1,5 +1,5 @@
 {
-  "name": "@redmunroe/lambda-responder",
+  "name": "@redmunroe/aglar",
   "version": "1.0.3",
   "description": "",
   "main": "dist/index.js",
@@ -8,6 +8,7 @@
   },
   "author": "",
   "license": "ISC",
+  "types": "dist/types",
   "devDependencies": {
     "@babel/cli": "^7.22.5",
     "@babel/core": "^7.22.5",

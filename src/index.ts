@@ -1,10 +1,18 @@
 import { ACCEPTED, BAD_REQUEST, CREATED, FORBIDDEN, FOUND, INTERNAL_SERVER_ERROR, MOVED_PERMANENTLY, NOT_FOUND, NOT_MODIFIED, NO_CONTENT, OK, PERMANENT_REDIRECT, SEE_OTHER, TEMPORARY_REDIRECT, UNAUTHORIZED, USE_PROXY } from '@redmunroe/net-http';
 
-export default class Lambda {
+type headers = Map<string, string>;
 
+type LambdaResponse = {
+    statusCode: number,
+    headers: headers,
+    body: string | undefined
+}
+
+export default class Lambda {
     status: number = 0; 
-    headers: object = {}; 
-    body: string | undefined = undefined; 
+    headers: headers; 
+    body: object | undefined = undefined; 
+    json: boolean = false;
 
     OK(): Lambda {
         return this.Status(OK)
@@ -75,32 +83,33 @@ export default class Lambda {
         return this;
     }
 
-    setHeaders(headers): Lambda {
-        this.headers = headers;
+    setHeaders(headers: object): Lambda {
+        this.headers = new Map(Object.entries(headers));
         return this;
     }
 
-    header(key, value): Lambda {
-        this.headers[key] = value;
+    header(key: string, value: string): Lambda {
+        this.headers.set(key, value);
         return this;
     }
 
-    setBody(body): Lambda {
+    setBody(body: object): Lambda {
         this.body = body;
         return this;
     }
 
-    JSON(body): Lambda {
+    JSON(body: object): Lambda {
         this.header('Content-Type', 'application/json'); 
-        this.body = JSON.stringify(body);
+        this.body = body
+        this.json = true;
         return this;
     }
 
-    send(): object {
+    send(): LambdaResponse {
         return {
             statusCode: this.status,
             headers: this.headers,
-            body: this.body
+            body: this.json ? JSON.stringify(this.body) : undefined
         }
     }
 }
