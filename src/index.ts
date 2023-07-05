@@ -68,6 +68,11 @@ export default class Lambda {
     body: object | undefined = undefined; 
     json: boolean = false;
     cors: CORS | undefined = undefined;
+
+    constructor() {
+        this.headers = new Map();
+    }
+
     OK(): Lambda {
         return this.Status(OK)
     }
