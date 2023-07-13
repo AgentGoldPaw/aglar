@@ -64,8 +64,8 @@ export class CORS {
 
 export default class Lambda {
     status: number = 0; 
-    headers: headers; 
-    body: object | undefined = undefined; 
+    headers: headers = new Map(); 
+    body: object | string | undefined = undefined; 
     json: boolean = false;
     cors: CORS | undefined = undefined;
 
