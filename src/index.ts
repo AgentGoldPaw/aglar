@@ -164,7 +164,7 @@ export default class Lambda {
         return this;
     }
 
-    setBody(body: object): Lambda {
+    setBody(body: object | string): Lambda {
         this.body = body;
         return this;
     }
