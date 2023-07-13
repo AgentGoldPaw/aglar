@@ -5,6 +5,7 @@ type headers = Map<string, string>;
 type LambdaResponse = {
     statusCode: number,
     headers: headers,
+    isBase64Encoded: boolean,
     body: string | undefined
 }
 
@@ -64,6 +65,7 @@ export class CORS {
 
 export default class Lambda {
     status: number = 0; 
+    base64Encoded: boolean = false;
     headers: headers = new Map(); 
     body: object | string | undefined = undefined; 
     json: boolean = false;
@@ -152,6 +154,11 @@ export default class Lambda {
         return this;
     }
 
+    isBase64Encoded(): Lambda {
+        this.base64Encoded = true;
+        return this;
+    }
+
     header(key: string, value: string): Lambda {
         this.headers.set(key, value);
         return this;
@@ -182,6 +189,7 @@ export default class Lambda {
         return {
             statusCode: this.status,
             headers: this.headers,
+            isBase64Encoded: this.base64Encoded,
             body: this.json ? JSON.stringify(this.body) : undefined
         }
     }
